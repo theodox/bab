@@ -7,11 +7,9 @@ FollowCamera = _js_class(BABYLON.FollowCamera)
 FreeCamera=_js_class(BABYLON.FreeCamera)
 GamepadCamera = _js_class(BABYLON.GamepadCamera)
 TargetCamera = _js_class(BABYLON.TargetCamera)
-TouchCamera - _js_class(BABYLON.TouchCamera)
 VirtualJoysticksCamera = _js_class(BABYLON.VirtualJoysticksCamera)
 
 AnaglyphArcRotateCamera = _js_class(BABYLON.ArcRotateCamera)
 AnaglyphFreeCamera=_js_class(BABYLON.AnaglyphFreeCamera)
-AnaglyphFreeCamera=_js_class(BABYLON.AnaglyphFreeCamera)
+AnaglyphGamepadCamera=_js_class(BABYLON.AnaglyphGamepadCamera)
 
-VRDeviceOrientationCamera = _js_class(BABYLON.VRDeviceOrientationCamera)
