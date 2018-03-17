@@ -36,13 +36,29 @@ def main():
     dummy = 0
     delta = babylon.Vector3.Up().scaleInPlace(0.001)
     def callback():
-        dummy += 1
-        sphere.position  = sphere.position + delta #__:fopov
+        nonlocal dummy
+        dummy += 1 #__:fopov
+        sphere.position  +=  delta #__:fopov
         scene_object.render()
-
+        if dummy > 100:
+            dummy = 0
     engine.runRenderLoop(callback)
 
-    window.addEventListener("resize", engine.resize)
+    window.addEventListener("resize", lambda : engine.resize())
 
 
 main()
+
+
+def run():
+    def foo():
+        x = 42
+
+        def bar():
+            print(x)
+
+        bar()
+
+    foo()
+    print("----")
+
