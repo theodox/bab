@@ -12,12 +12,12 @@ def main():
         scene = babylon.Scene(engine)
 
         # Add a camera to the scene and attach it to the canvas
-        camera = babylon.ArcRotateCamera("Camera", PIOVERTWO, PIOVERTWO, 2, babylon.Vector3(0, 0, 0), scene)
+        camera = babylon.cameras.ArcRotateCamera("Camera", PIOVERTWO, PIOVERTWO, 2, babylon.Vector3(0, 0, 0), scene)
         camera.attachControl(canvas, True)
 
         # Add lights to the scene
-        light1 = babylon.HemisphericLight("light1", babylon.Vector3(1, 1, 0), scene)
-        light2 = babylon.PointLight("light2", babylon.Vector3(0, 1, -1), scene)
+        light1 = babylon.lights.HemisphericLight("light1", babylon.Vector3(1, 1, 0), scene)
+        light2 = babylon.lights.PointLight("light2", babylon.Vector3(0, 1, -1), scene)
 
         # This is where you create and manipulate meshes
 
