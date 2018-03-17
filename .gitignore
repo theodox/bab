@@ -1,5 +1,6 @@
 # compiled js
 __javascript__/
+org/babylonjs/__javascript__/__init__.mod.js
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
