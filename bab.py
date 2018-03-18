@@ -35,7 +35,7 @@ def main():
     dummy = 0
     delta = babylon.Vector3.Up().scaleInPlace(0.001)
     def callback():
-        __pragma__('opov')
+        __pragma__('opov', 'fast')
         dummy +=1
         sphere.position  +=  delta 
         __pragma__('noopov')
@@ -46,19 +46,4 @@ def main():
 
     window.addEventListener("resize", lambda : engine.resize())
 
-
 main()
-
-
-def run():
-    def foo():
-        x = 42
-
-        def bar():
-            print(x)
-
-        bar()
-
-    foo()
-    print("----")
-

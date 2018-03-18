@@ -1,16 +1,16 @@
 __pragma__('noanno')
 
-def _js_class(obj):
+def _js_class(api_object):
     '''
     Add python-style constructor, but preserve static methods from the original class
     '''
-    def _c_(*args):
-        return __new__(obj(*args))
+    def BabylonAPIObject(*args):
+        return __new__(api_object(*args))
 
     # allows for 'static' functions too
-    Object.setPrototypeOf(_c_, obj)
-    obj['__str__'] = object.toString
-    return _c_
+    Object.setPrototypeOf(BabylonAPIObject, api_object)
+    api_object['__str__'] = api_object.toString
+    return BabylonAPIObject
 
 __pragma__('kwargs')
 
@@ -31,12 +31,15 @@ def _js_math_class(obj, add ='add', subtract ='subtract', multiply ='multiply', 
 __pragma__('nokwargs')
 
 console.time("babylonjs loaded")
+# load the Babylonjs module
 __pragma__('js', '{}' , __include__('org/babylonjs/__javascript__/babylon.custom.js'))
 console.timeEnd("babylonjs loaded")
 
 
 console.time("api initialized");
-
+# wrap api classes where useful, promote to 
+# the __all__ namespace of this so they look like
+# memberts for import
 def _promote(member):  
     """
     apply wrappers to js_classes where appropriate
@@ -59,9 +62,8 @@ def _promote(member):
     return member
 
 __pragma__('jsiter')
-for k in BABYLON:
-    __all__[k] = _promote(BABYLON[k])
-#api = {k: _promote(BABYLON[k]) for k in BABYLON}
+for _k in BABYLON:
+    __all__[_k] = _promote(BABYLON[_k])
 __pragma__('nojsiter')
 
 
