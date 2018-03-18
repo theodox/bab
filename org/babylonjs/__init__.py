@@ -1,6 +1,5 @@
 __pragma__('noanno')
 
-
 def _js_class(obj):
     '''
     Add python-style constructor, but preserve static methods from the original class
@@ -10,7 +9,6 @@ def _js_class(obj):
 
     # allows for 'static' functions too
     Object.setPrototypeOf(_c_, obj)
-
     obj['__str__'] = object.toString
     return _c_
 
@@ -19,6 +17,8 @@ __pragma__('kwargs')
 def _js_math_class(obj, add ='add', subtract ='subtract', multiply ='multiply', divide ='divide'):
     '''
     Add python constructor and python magic methods for operator overloading
+    if necessary, use kwargs to choose the native function that
+    becomes a magic method
     '''
     obj.prototype['__add__'] = obj.prototype[add]
     obj.prototype['__sub__'] = obj.prototype[subtract]
@@ -30,9 +30,18 @@ def _js_math_class(obj, add ='add', subtract ='subtract', multiply ='multiply', 
 
 __pragma__('nokwargs')
 
+console.time("babylonjs loaded")
 __pragma__('js', '{}' , __include__('org/babylonjs/__javascript__/babylon.custom.js'))
+console.timeEnd("babylonjs loaded")
 
-_math_classes = (
+
+console.time("api initialized");
+
+def _promote(member):  
+    """
+    apply wrappers to js_classes where appropriate
+    """
+    MATH_CLASSES = (
     'Vector3',
     'Vector4',
     'Color3',
@@ -41,14 +50,19 @@ _math_classes = (
     'Quaternion'
     )
 
-math = {k: _js_math_class(BABYLON[k]) for k in _math_classes}
-
-
-def _promotable(cls):  
-    return cls not in _math_classes and \
-        cls.hasOwnProperty('prototype') and \
-        cls.prototype.hasOwnProperty('constructor')
+    if member not in MATH_CLASSES \
+        and member.hasOwnProperty('prototype') \
+        and member.prototype.hasOwnProperty('constructor'):
+        if member.prototype.hasOwnProperty('multiply'):
+            return _js_math_class(member)
+        return _js_class(member)
+    return member
 
 __pragma__('jsiter')
-classes = {k: _js_class(BABYLON[k]) for k in BABYLON if _promotable(BABYLON[k])}
+for k in BABYLON:
+    __all__[k] = _promote(BABYLON[k])
+#api = {k: _promote(BABYLON[k]) for k in BABYLON}
 __pragma__('nojsiter')
+
+
+console.timeEnd("api initialized")

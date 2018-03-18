@@ -1,13 +1,11 @@
-from org.babylonjs import classes as babylon
-from org.babylonjs import math
-
+import org.babylonjs as babylon
 from org.transcrypt.stubs.browser import document
 
 PIOVERTWO = Math.PI / 2.0
-
 def main():
     canvas = document.getElementById("renderCanvas")
     engine = babylon.Engine(canvas, True)
+
 
     def setup():
         scene = babylon.Scene(engine)
@@ -17,8 +15,8 @@ def main():
         camera.attachControl(canvas, True)
 
         # Add lights to the scene
-        light1 = babylon.HemisphericLight("light1", math.Vector3(1, 1, 0), scene)
-        light2 = babylon.PointLight("light2", math.Vector3(0, 1, -1), scene)
+        light1 = babylon.HemisphericLight("light1", babylon.Vector3(1, 1, 0), scene)
+        light2 = babylon.PointLight("light2", babylon.Vector3(0, 1, -1), scene)
 
         # This is where you create and manipulate meshes
 
@@ -35,7 +33,7 @@ def main():
     scene_object, sphere = setup()
 
     dummy = 0
-    delta = math.Vector3.Up().scaleInPlace(0.001)
+    delta = babylon.Vector3.Up().scaleInPlace(0.001)
     def callback():
         __pragma__('opov')
         dummy +=1
