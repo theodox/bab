@@ -1,10 +1,4 @@
-import org.babylonjs.core as core
-import org.babylonjs.geometry as geometry
-import org.babylonjs.cameras as cameras
-import org.babylonjs.lights as lights
-
-from org.babylonjs.core import Vector3
-
+import org.babylonjs as babylon
 from org.transcrypt.stubs.browser import document
 
 PIOVERTWO = Math.PI / 2.0
@@ -12,41 +6,39 @@ PIOVERTWO = Math.PI / 2.0
 
 def main():
     canvas = document.getElementById("renderCanvas")
-    engine = core.Engine(canvas, True)
+    engine = babylon.Engine(canvas, True)
 
     def setup():
-        scene = core.Scene(engine)
+        scene = babylon.Scene(engine)
 
         # Add a camera to the scene and attach it to the canvas
-        camera = cameras.ArcRotateCamera("Camera", PIOVERTWO, PIOVERTWO, 2, Vector3(0, 0, 0), scene)
+        camera = babylon.cameras.ArcRotateCamera("Camera", PIOVERTWO, PIOVERTWO, 2, babylon.Vector3(0, 0, 0), scene)
         camera.attachControl(canvas, True)
 
         # Add lights to the scene
-        light1 = lights.HemisphericLight("light1", Vector3(1, 1, 0), scene)
-        light2 = lights.PointLight("light2",    Vector3(0, 1, -1), scene)
+        light1 = babylon.lights.HemisphericLight("light1", babylon.Vector3(1, 1, 0), scene)
+        light2 = babylon.lights.PointLight("light2", babylon.Vector3(0, 1, -1), scene)
 
         # This is where you create and manipulate meshes
 
-        sphere = geometry.MeshBuilder.CreateSphere("sphere", {}, scene)
+        sphere = babylon.MeshBuilder.CreateSphere("sphere", {}, scene)
         opts = {
             'size': 4,
             'width': 4,
             'height': 4,
-            'sourcePlane': geometry.Plane(0, -1, 0, 1)
+            'sourcePlane': babylon.Plane(0, -1, 0, 1)
         }
-        box = geometry.MeshBuilder.CreatePlane("plane", opts, scene)
+        box = babylon.MeshBuilder.CreatePlane("plane", opts, scene)
         return scene, sphere
 
     scene_object, sphere = setup()
 
     dummy = 0
-    delta = core.Vector3.Up().scaleInPlace(0.001)
+    delta = babylon.Vector3.Up().scaleInPlace(0.001)
     def callback():
-        __pragma__('opov')
         nonlocal dummy
-        dummy += 1
-        sphere.position  +=  delta
-        __pragma__('noopov')
+        dummy += 1 #__:fopov
+        sphere.position  +=  delta #__:fopov
         scene_object.render()
         if dummy > 100:
             dummy = 0
@@ -57,4 +49,16 @@ def main():
 
 main()
 
+
+def run():
+    def foo():
+        x = 42
+
+        def bar():
+            print(x)
+
+        bar()
+
+    foo()
+    print("----")
 
