@@ -16,7 +16,7 @@ def _js_class(obj):
 
 __pragma__('kwargs')
 
-def _js_math_class(obj, add ='add', subtract ='subtract', multiply ='multiply', divide ='divide'):
+def _js_math_class(obj, add ='add', subtract ='subtract', multiply ='multiply', divide ='divide', equals='equals'):
     '''
     Add python constructor and python magic methods for operator overloading
     '''
@@ -24,11 +24,20 @@ def _js_math_class(obj, add ='add', subtract ='subtract', multiply ='multiply', 
     obj.prototype['__sub__'] = obj.prototype[subtract]
     obj.prototype['__mul__'] = obj.prototype[multiply]
     obj.prototype['__div__'] = obj.prototype[divide]
+    obj.prototype['__eq__'] = obj.prototype[equals]
+
+    def neq (other):
+        return not this['__eq__'](other)
+
+    obj.prototype['__neq__'] == neq
 
     base = _js_class(obj)
     return base
 
 __pragma__('nokwargs')
 
-__pragma__('js', '{}' , __include__('org/babylonjs/__javascript__/babylon.custom.js'))
+__pragma__('js',
+           '{}' ,
+           __include__('org/babylonjs/__javascript__/babylon.custom.js')
+           )
 
