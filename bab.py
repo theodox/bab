@@ -1,8 +1,9 @@
-import org.babylonjs as babylon
+from org.babylonjs import classes as babylon
+from org.babylonjs import math
+
 from org.transcrypt.stubs.browser import document
 
 PIOVERTWO = Math.PI / 2.0
-
 
 def main():
     canvas = document.getElementById("renderCanvas")
@@ -12,12 +13,12 @@ def main():
         scene = babylon.Scene(engine)
 
         # Add a camera to the scene and attach it to the canvas
-        camera = babylon.cameras.ArcRotateCamera("Camera", PIOVERTWO, PIOVERTWO, 2, babylon.Vector3(0, 0, 0), scene)
+        camera = babylon.ArcRotateCamera("Camera", PIOVERTWO, PIOVERTWO, 2, babylon.Vector3(0, 0, 0), scene)
         camera.attachControl(canvas, True)
 
         # Add lights to the scene
-        light1 = babylon.lights.HemisphericLight("light1", babylon.Vector3(1, 1, 0), scene)
-        light2 = babylon.lights.PointLight("light2", babylon.Vector3(0, 1, -1), scene)
+        light1 = babylon.HemisphericLight("light1", math.Vector3(1, 1, 0), scene)
+        light2 = babylon.PointLight("light2", math.Vector3(0, 1, -1), scene)
 
         # This is where you create and manipulate meshes
 
@@ -34,11 +35,12 @@ def main():
     scene_object, sphere = setup()
 
     dummy = 0
-    delta = babylon.Vector3.Up().scaleInPlace(0.001)
+    delta = math.Vector3.Up().scaleInPlace(0.001)
     def callback():
-        nonlocal dummy
-        dummy += 1 #__:fopov
-        sphere.position  +=  delta #__:fopov
+        __pragma__('opov')
+        dummy +=1
+        sphere.position  +=  delta 
+        __pragma__('noopov')
         scene_object.render()
         if dummy > 100:
             dummy = 0

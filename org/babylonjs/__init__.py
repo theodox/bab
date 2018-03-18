@@ -32,19 +32,23 @@ __pragma__('nokwargs')
 
 __pragma__('js', '{}' , __include__('org/babylonjs/__javascript__/babylon.custom.js'))
 
-Engine = _js_class(BABYLON.Engine)
-Scene = _js_class(BABYLON.Scene)
-Camera = _js_class(BABYLON.Camera)
+_math_classes = (
+    'Vector3',
+    'Vector4',
+    'Color3',
+    'Color4',
+    'Matrix',
+    'Quaternion'
+    )
 
-class cameras:
-    ArcRotateCamera = _js_class(BABYLON.ArcRotateCamera)
+math = {k: _js_math_class(BABYLON[k]) for k in _math_classes}
 
-class lights:
-    HemisphericLight = _js_class(BABYLON.HemisphericLight)
-    PointLight = _js_class(BABYLON.PointLight)
-MeshBuilder = BABYLON.MeshBuilder
-Plane = _js_class(BABYLON.Plane)
 
-# math classes use _opov_cls
-Vector3 = _js_math_class(BABYLON.Vector3)
+def _promotable(cls):  
+    return cls not in _math_classes and \
+        cls.hasOwnProperty('prototype') and \
+        cls.prototype.hasOwnProperty('constructor')
 
+__pragma__('jsiter')
+classes = {k: _js_class(BABYLON[k]) for k in BABYLON if _promotable(BABYLON[k])}
+__pragma__('nojsiter')
