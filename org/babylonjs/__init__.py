@@ -12,9 +12,10 @@ def _js_class(api_object):
     api_object['__str__'] = api_object.toString
     return BabylonAPIObject
 
-__pragma__('kwargs')
 
-def _js_math_class(obj, add ='add', subtract ='subtract', multiply ='multiply', divide ='divide'):
+
+
+def _js_math_class(obj, add ='add', subtract ='subtract', multiply ='multiply', divide ='divide', equals = 'equals'):
     '''
     Add python constructor and python magic methods for operator overloading
     if necessary, use kwargs to choose the native function that
@@ -24,11 +25,16 @@ def _js_math_class(obj, add ='add', subtract ='subtract', multiply ='multiply', 
     obj.prototype['__sub__'] = obj.prototype[subtract]
     obj.prototype['__mul__'] = obj.prototype[multiply]
     obj.prototype['__div__'] = obj.prototype[divide]
+    obj.prototype['__eq__'] = obj.prototype[equals]
+
+    def _ne_(other):
+        return not  (this.__eq__(other))
+
+    obj.prototype['__ne__'] = _ne_
 
     base = _js_class(obj)
     return base
 
-__pragma__('nokwargs')
 
 console.time("babylonjs loaded")
 # load the Babylonjs module

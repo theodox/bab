@@ -49,3 +49,11 @@ def main():
     window.addEventListener("resize", lambda : engine.resize())
 
 main()
+
+__pragma__('opov', 'fast')
+a = babylon.Vector3.Up()
+b = babylon.Vector3.Up()
+one = a == b
+two = b != a
+console.log(one, two)
+__pragma__('noopov')
