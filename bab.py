@@ -33,8 +33,10 @@ def main():
     scene_object, sphere = setup()
 
     dummy = 0
+    print(dummy)
     delta = babylon.Vector3.Up().scaleInPlace(0.001)
     def callback():
+        nonlocal  dummy
         __pragma__('opov', 'fast')
         dummy +=1
         sphere.position  +=  delta 
@@ -47,3 +49,11 @@ def main():
     window.addEventListener("resize", lambda : engine.resize())
 
 main()
+
+__pragma__('opov', 'fast')
+a = babylon.Vector3.Up()
+b = babylon.Vector3.Up()
+one = a == b
+two = b != a
+console.log(one, two)
+__pragma__('noopov')
