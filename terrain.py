@@ -10,12 +10,12 @@ class Array2D:
 
 	def get(self, x, y):
 		w = self.width
-		addr = (max(min(y, self.height), 0) * w) + max(min(x, w), 0)
+		addr = (max(min(y, self.height - 1), 0) * w) + max(min(x, w - 1 ), 0)
 		return self.data[addr]
 
 	def set(self, x, y, val):
 		w = self.width
-		addr = (max(min(y, self.height), 0) * w) + max(min(x, w), 0)
+		addr = (max(min(y, self.height - 1), 0) * w) + max(min(x, w - 1 ), 0)
 		self.data[addr] = val
 
 	def range(self, xmin, ymin, xmax, ymax):
@@ -30,6 +30,7 @@ class Array2D:
 
 
 	def __setitem__(self, addr, val):
+		print ("__setitem__", addr, val)
 		x, y = addr
 		self.set(x, y, val)
 
@@ -43,9 +44,10 @@ class Array2D:
 			bounds = (0,0, self.width, self.height)
 
 		result = Array2D(bounds[2], bounds[3])
-
 		for address in self.range(bounds[0], bounds[1], bounds[2], bounds[3] ):
-			result[address] = Math.floor(func(self, image2, address))
+			r = Math.floor(func(self, image2, address))
+			result.set(address[0], address[1], r)
+			# for some reason using bracket notation coerces this to a string
 
 		return result
 
@@ -60,8 +62,8 @@ def test_blur(image1, image2, address):
 	total += image1[x+1, y] * 2
 	total += image1[x, y-1] * 2
 	total += image1[x, y+1] * 2
-	total += image1[x, y] * 8
-	return total / 16
+	total += image1[x, y] * 16
+	return total / 28
 
 	
 

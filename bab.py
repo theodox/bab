@@ -8,10 +8,11 @@ gui = babylon.GUI
 
 test = Array2D(3,3)
 test[1,1] = 32567
-test  = test.map(test_blur)
-print (test[0,0])
-print (test[1,1])
-print (test.data)
+test2  = test.map(test_blur)
+print (test2[0,0])
+print (test2[1,1])
+print (test2.data)
+test2[1,1] = 99
 
 PIOVERTWO = Math.PI / 2.0
 def main():
