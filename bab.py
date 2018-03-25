@@ -2,17 +2,23 @@ import org.babylonjs as babylon
 from game import Game, SphereActor
 from org.transcrypt.stubs.browser import document
 import random
-from terrain import Array2D, test_blur
+from terrain import Bitmap, create_kernel
 gui = babylon.GUI
 
 
-test = Array2D(3,3)
-test[1,1] = 32567
-test2  = test.map(test_blur)
-print (test2[0,0])
-print (test2[1,1])
-print (test2.data)
-test2[1,1] = 99
+test = Bitmap(5, 5, Float32Array)
+test[2,1] = 1.0
+test[2,2] = 1.0
+test[2,3] = 1.0
+
+k = create_kernel(3,3, [
+    -1.0, -1.0, -1.0,
+    -1.0, 8.0, -1.0,
+    -1.0, -1.0, -1.0
+])
+q = test.convolve(k)
+print(q.data)
+
 
 PIOVERTWO = Math.PI / 2.0
 def main():
