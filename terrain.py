@@ -2,17 +2,16 @@ import Math
 import Random
 
 
-class Bitmap:
-    """
-    simple bitmap class for heightmaps, etc
+class BitmapBase:
+    """bitmap class"""
 
-    Note that bracket access is not available to avoid the overhead of operator overloading
-    """
-    def __init__(self, x, y = None, data_type = Uint16Array):
+    DATA_TYPE = Uint8Array
+
+    def __init__(self, x, y = None):
         self.width = x
         self.height = y or x
-        self.data = __new__(data_type(self.width * self.height))
-        self.data_type  = data_type
+        self.data = __new__(self.DATA_TYPE(self.width * self.height))
+        
 
     def get(self, x, y):
         if x < 0 or x >= self.width or y < 0 or y >= self.height:
@@ -38,7 +37,7 @@ class Bitmap:
         """
         bounds = bounds or (0,0, self.width, self.height)
 
-        result = Bitmap(bounds[2], bounds[3], self.data_type)
+        result = self.__class__(bounds[2], bounds[3])
         for address in self.region(bounds[0], bounds[1], bounds[2], bounds[3]):
             r = func(self, address)
             result.set(address[0], address[1], float(abs(r)))
@@ -54,13 +53,36 @@ class Bitmap:
 
         bounds = bounds or (0,0, self.width, self.height)
 
-        result = Bitmap(bounds[2], bounds[3], self.data_type)
+        result = self.__class__(bounds[2], bounds[3])
         for address in self.region(bounds[0], bounds[1], bounds[2], bounds[3]):
             r = kernel(self, address)
             result.set(address[0], address[1], r)
 
         return result
 
+    def validate(self, value):
+        '''override in derived classes to make sure values are good'''
+        if value < 0 :
+            return 0
+        if value > 255:
+            return 255
+        return Math.floor(value)       
+
+class BitmapUint16(BitmapBase):
+    DATA_TYPE=Uint16Array
+
+    def validate(self, value):
+        if value < 0 :
+            return 0
+        if value > 65535:
+            return 65535
+        return Math.floor(value)       
+
+class BitmapFloat32(BitmapBase):
+    DATA_TYPE=Float32Array
+        
+    def validate(self, value):
+        return value
 
 
 def create_kernel( width, height, data, multiplier = 1):
@@ -106,13 +128,15 @@ def box_blur_kernel():
 
 def test_bitmap():
     console.time("create bitmap")
-    b = Bitmap(1024, 1024, Float32Array)
+    b = BitmapFloat32(1024, 1024)
     console.timeEnd("create bitmap")
     console.time("fill bitmap")
     for u in range(1024):
         for v in range(1024):
-            b.set(u, v, Random.random())
+            b.set(u, v, int(Random.random() * 10000))
+    b.set(0,0,99.99)
     console.timeEnd("fill bitmap")
+    print (b.get(0,0))
 
     k = box_blur_kernel()
     console.time("convolve")
