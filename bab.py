@@ -10,6 +10,8 @@ def main():
     canvas = document.getElementById("renderCanvas")
     engine = babylon.Engine(canvas, True)
 
+
+    
  
     def setup():
         scene = babylon.Scene(engine)
@@ -24,7 +26,7 @@ def main():
 
         # This is where you create and manipulate meshes
         spheres  =[]
-        for r in range(1000):
+        for r in range(4):
             opts = {'size' : 0.5}
             a_sphere = babylon.MeshBuilder.CreateSphere("sphere_" + str(r), {}, scene)
 
@@ -41,6 +43,16 @@ def main():
             'sourcePlane': babylon.Plane(0, -1, 0, 1)
         }
         base_plane = babylon.MeshBuilder.CreatePlane("plane", opts, scene)
+ 
+        at = {
+            'attributes': ["position", "uv"],
+            'uniforms': ["worldViewProjection"]
+            }
+        amigaMaterial = babylon.ShaderMaterial("amiga", scene, '/src/shaders/tester', at)
+            
+        
+        amigaMaterial.setTexture("textureSampler", babylon.Texture("/src/uvcheck.jpg", scene));
+        base_plane.material = amigaMaterial
         return scene, spheres
 
     scene_object, spheres = setup()
