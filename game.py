@@ -1,22 +1,34 @@
-from org.babylonjs import Engine, Observable, Vector3, Space
+from org.babylonjs.api import Vector3, Space, Engine, Scene
+from org.transcrypt.stubs.browser import window, console
 import time
 import random
+import logging
+logger = logging.getLogger(__name__)
+
 
 class Game:
 
-    def __init__(self, engine):
+    def __init__(self, canvas="renderCanvas"):
 
-        self.engine = engine
-        engine.onBeginFrameObservable.add(self.beforeRender)
+        canvas = window.document.getElementById("renderCanvas")
+        self.engine = Engine(canvas, True)
+        self.canvas = canvas
         self.started = time.time()
         self.last_frame = self.started
-        self.pick_map = dict()
         self.paused = False
-        engine.scenes[0].cameraToUseForPointers = engine.scenes[0].cameras[0]
-        window.addEventListener("click", self.click_handler)
+        self.active_scene = None
+        self.click_handlers = []
 
-    def add_actor(self, tmp):
-        self.pick_map[tmp.sphere] = tmp
+        window.addEventListener("click", self._click_handler)
+        window.addEventListener("resize", lambda: engine.resize())
+
+    def create_scene(self):
+        self.active_scene = Scene(self.engine)
+        return self.active_scene
+
+
+    def set_camera(self, camera):
+        self.active_scene.cameraToUseForPointers = camera
 
     def update(self):
         now = time.time()
@@ -26,38 +38,22 @@ class Game:
                 actor.tick(delta)
         self.last_frame = now
 
-    def beforeRender(self):
-        pass
-        #print(self.last_frame)
+    def _click_handler(self, val):
+        scn = self.active_scene
+        if not scn or not self._click_handlers:
+            return
 
-    def click_handler(self, val):
-        s = self.engine.scenes[0]
+        pick_result = scn.pick(scn.pointerX, scn.pointerY)
+        for handler in self.click_handlers:
+            handler(pick_result)
 
-        if s:
-            result =  s.pick(s.pointerX, s.pointerY)
-            picked = self.pick_map.get(result.pickedMesh)
-            console.log("clicked on:" + result.pickedMesh)
-            if picked:
-                picked.delta = Vector3.Up()
-                self.paused = not self.paused
 
 class Actor:
+    """base class for updatables"""
 
-    def __init__(self):
+    def __init__(self, mesh):
+        self.mesh = mesh
         pass
 
     def tick(self, interval):
         pass
-
-
-class SphereActor (Actor):
-    def __init__(self, sphere):
-        self.sphere = sphere
-        self.delta = Vector3(random.random(),
-                random.random(),
-                random.random()).scale(random.random() * 0.25)
-        super().__init__(self)
-
-    def tick(self, interval):
-        self.sphere.translate(self.delta.scale(interval), Space.WORLD)
-        super().tick(self, interval)
