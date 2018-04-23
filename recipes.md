@@ -10,4 +10,5 @@ result =  s.pick(s.pointerX, s.pointerY).pickedPoint
 Transcrypt
 ===========
 
-# __getitem__ / __setitem__  and __call__ require the `opov` pragma
+*  __getitem__ / __setitem__  and __call__ require the `opov` pragma
+* so do _negative_ slice indices!

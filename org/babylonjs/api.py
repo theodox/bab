@@ -1,4 +1,6 @@
 from org.transcrypt.stubs.browser import __pragma__, __new__, window, this, console, __include__, __all__
+import logging
+logger = logging.getLogger(__name__)
 
 
 __pragma__('noanno')
@@ -38,10 +40,34 @@ def _js_math_class(obj, add='add', subtract='subtract', multiply='multiply', div
     return base
 
 
+def _add_kwargs(cls, member):
+
+    orig = cls[member]
+    if not orig:
+        raise KeyError('No member named', member)
+    alias = ''
+    for idx, char in enumerate(member):
+        if char != char.upper():
+            alias += char
+        else:
+            if idx > 0:
+                alias += '_'
+            alias += char.lower()
+    logger.debug(orig + '>' + alias)
+
+    __pragma__('kwargs')
+
+    def kwargified(name, scene, **kwargs):
+        return orig(name, kwargs, scene)
+    __pragma__('nokwargs')
+
+    cls[alias] = kwargified
+
+
 def _promote(member):
-    """
+    '''
     apply wrappers to js_classes where appropriate
-    """
+    '''
     if member.hasOwnProperty('prototype') and member.prototype.hasOwnProperty('constructor'):
         if member.prototype.hasOwnProperty('multiply'):
             # return with magic methods for fast operator overload
@@ -55,21 +81,36 @@ def _promote(member):
     return member
 
 
-console.time("babylonjs loaded")
-# load the Babylonjs module
-__pragma__('js', '{}', __include__('org/babylonjs/__javascript__/babylon.custom.js'))
-console.timeEnd("babylonjs loaded")
+# load the Babylonjs module into __all__
+console.time('babylonjs loaded')
+__pragma__('js', '{}', __include__(
+    'org/babylonjs/__javascript__/babylon.custom.js'))
+console.timeEnd('babylonjs loaded')
 
 
-console.time("api initialized")
 # wrap api classes where useful, promote to
 # the __all__ namespace of this so they look like
 # memberts for import
+console.time('api initialized')
 
 __pragma__('jsiter')
 for _k in window.BABYLON:
-    if not _k.startswith("_"):
+    if not _k.startswith('_'):
         __all__[_k] = _promote(window.BABYLON[_k])
 __pragma__('nojsiter')
 
-console.timeEnd("api initialized")
+console.timeEnd('api initialized')
+
+
+# add pep-8 style versions of create functions with kwargs syntax
+TAGS = ('CreateBox', 'CreateCylinder', 'CreateDashedLines', 'CreateDecal', 'CreateDisc', 'CreateGround',
+        'CreateGroundFromHeightMap', 'CreateIcoSphere', 'CreateLathe', 'CreateLineSystem', 'CreateLines',
+        'CreatePlane', 'CreatePolygon', 'CreatePolyhedron', 'CreateRibbon', 'CreateSphere',
+        'CreateTiledGround', 'CreateTorus', 'CreateTorusKnot', 'CreateTube')
+
+mb = __all__['MeshBuilder']
+for tag in TAGS:
+    _add_kwargs(mb, tag)
+
+# clean up the one-time functions
+del TAGS, _promote, _js_class, _js_math_class, _add_kwargs

@@ -7,11 +7,10 @@ class BitmapBase:
 
     DATA_TYPE = Uint8Array
 
-    def __init__(self, x, y = None):
+    def __init__(self, x, y=None):
         self.width = x
         self.height = y or x
         self.data = __new__(self.DATA_TYPE(self.width * self.height))
-        
 
     def get(self, x, y):
         if x < 0 or x >= self.width or y < 0 or y >= self.height:
@@ -28,14 +27,14 @@ class BitmapBase:
         iterator that yields all the addresses in the range (inclusive on lower bound, exclusive on upper!)
         """
         for x in range(xmin, xmax):
-            for y in range (ymin, ymax):
+            for y in range(ymin, ymax):
                 yield x, y
 
-    def map_function(self, func, bounds = None):
+    def map_function(self, func, bounds=None):
         """
         run the callable func on every address within <bounds> on this image and (optionally) <image2>, returning a new image
         """
-        bounds = bounds or (0,0, self.width, self.height)
+        bounds = bounds or (0, 0, self.width, self.height)
 
         result = self.__class__(bounds[2], bounds[3])
         for address in self.region(bounds[0], bounds[1], bounds[2], bounds[3]):
@@ -44,14 +43,14 @@ class BitmapBase:
 
         return result
 
-    def convolve (self, kernel, bounds = None):
+    def convolve(self, kernel, bounds=None):
         """
         run kernel on every address within <bounds> on this image and (optionally) <image2>, returning a new image
 
         kernel is a callable which takes a bitmap and a tuple pixel address
         """
 
-        bounds = bounds or (0,0, self.width, self.height)
+        bounds = bounds or (0, 0, self.width, self.height)
 
         result = self.__class__(bounds[2], bounds[3])
         for address in self.region(bounds[0], bounds[1], bounds[2], bounds[3]):
@@ -62,39 +61,44 @@ class BitmapBase:
 
     def validate(self, value):
         '''override in derived classes to make sure values are good'''
-        if value < 0 :
+        if value < 0:
             return 0
         if value > 255:
             return 255
-        return Math.floor(value)       
+        return Math.floor(value)
+
 
 class BitmapUint16(BitmapBase):
-    DATA_TYPE=Uint16Array
+    DATA_TYPE = Uint16Array
 
     def validate(self, value):
-        if value < 0 :
+        if value < 0:
             return 0
         if value > 65535:
             return 65535
-        return Math.floor(value)       
+        return Math.floor(value)
+
 
 class BitmapFloat32(BitmapBase):
-    DATA_TYPE=Float32Array
-        
+    DATA_TYPE = Float32Array
+
     def validate(self, value):
         return value
 
 
-def create_kernel( width, height, data, multiplier = 1):
+def create_kernel(width, height, data, multiplier=1):
     """
     returns a function object with associated weights for convolving a pixel
     """
 
-    assert (len(data) == width * height, "Kernel data must include width  * height elements")
-    assert (width / 2.0 != Math.floor(width / 2.0), "Kernel must have an odd number of columns")
-    assert (height / 2.0 != Math.floor(height / 2.0), "Kernel must have an odd number of rows")
+    assert (len(data) == width * height,
+            "Kernel data must include width  * height elements")
+    assert (width / 2.0 != Math.floor(width / 2.0),
+            "Kernel must have an odd number of columns")
+    assert (height / 2.0 != Math.floor(height / 2.0),
+            "Kernel must have an odd number of rows")
 
-    margin_w =  Math.floor(width / 2.0)
+    margin_w = Math.floor(width / 2.0)
     margin_h = Math.floor(height / 2.0)
 
     def _kernel_(bitmap, address):
@@ -123,8 +127,10 @@ def create_kernel( width, height, data, multiplier = 1):
 
     return _kernel_
 
+
 def box_blur_kernel():
-    return create_kernel(3,3, [1,1,1,1,1,1,1,1,1], (1/9.0))
+    return create_kernel(3, 3, [1, 1, 1, 1, 1, 1, 1, 1, 1], (1 / 9.0))
+
 
 def test_bitmap():
     console.time("create bitmap")
@@ -134,9 +140,9 @@ def test_bitmap():
     for u in range(1024):
         for v in range(1024):
             b.set(u, v, int(Random.random() * 10000))
-    b.set(0,0,99.99)
+    b.set(0, 0, 99.99)
     console.timeEnd("fill bitmap")
-    print (b.get(0,0))
+    print (b.get(0, 0))
 
     k = box_blur_kernel()
     console.time("convolve")
