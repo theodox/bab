@@ -1,69 +1,21 @@
-import org.babylonjs as babylon
-from game import Game, SphereActor
-from org.transcrypt.stubs.browser import document
-import random
-from terrain import Array2D, test_blur
-gui = babylon.GUI
+import bootstrap
+import org.babylonjs.api as api
+import org.babylonjs.globals as babylon
+from org.transcrypt.stubs.browser import __pragma__
+import logging
+logger = logging.getLogger(__name__)
 
+__pragma__('alias', 'babylon_aliases')
 
-test = Array2D(3,3)
-test[1,1] = 32567
-test  = test.map(test_blur)
-print (test[0,0])
-print (test[1,1])
-print (test.data)
+engine = babylon.create_engine()
+stage = babylon.create_scene()
+babylon.activate_scene(stage)
 
-PIOVERTWO = Math.PI / 2.0
-def main():
-    canvas = document.getElementById("renderCanvas")
-    engine = babylon.Engine(canvas, True)
+camera = api.FreeCamera("camera1", api.Vector3(0, 5, -10))
+stage.add_camera(camera)
+camera.attach_control(babylon.get_canvas())
+api.MeshBuilder.create_plane("plane", stage, size=4, plane=api.Plane(0, -1, 0, 0))
+hlight = api.HemisphericLight('light1', api.Vector3(0, -1, 0))
+stage.add_light(hlight)
 
- 
-    def setup():
-        scene = babylon.Scene(engine)
-
-        # Add a camera to the scene and attach it to the canvas
-        camera = babylon.ArcRotateCamera("Camera", PIOVERTWO, PIOVERTWO, 2, babylon.Vector3(0, 0, 0), scene)
-        camera.attachControl(canvas, True)
-
-        # Add lights to the scene
-        light1 = babylon.HemisphericLight("light1", babylon.Vector3(1, 1, 0), scene)
-        light2 = babylon.PointLight("light2", babylon.Vector3(0, 1, -1), scene)
-
-        # This is where you create and manipulate meshes
-        spheres  =[]
-        for r in range(1000):
-            opts = {'size' : 0.5}
-            a_sphere = babylon.MeshBuilder.CreateSphere("sphere_" + str(r), {}, scene)
-
-            a_sphere.position = babylon.Vector3(
-                (random.random() -0.5) * 10,
-                (random.random() * 10),
-                (random.random() -0.5) * 10
-                )
-            spheres.append(a_sphere)
-        opts = {
-            'size': 4,
-            'width': 4,
-            'height': 4,
-            'sourcePlane': babylon.Plane(0, -1, 0, 1)
-        }
-        base_plane = babylon.MeshBuilder.CreatePlane("plane", opts, scene)
-        return scene, spheres
-
-    scene_object, spheres = setup()
-    gameEngine = Game(engine)
-    for sph in spheres:
-        sphereActor = SphereActor(sph)
-        gameEngine.add_actor(sphereActor)
-
-    print(gameEngine)
-
-    def callback():
-        gameEngine.update()
-        scene_object.render()
-        
-    engine.runRenderLoop(callback)
-    window.addEventListener("resize", lambda : engine.resize())
-    window.addEventListener("click", gameEngine.clickHandler)
-main()
+__pragma__('noalias', 'babylon_aliases')
