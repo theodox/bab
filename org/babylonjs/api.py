@@ -45,15 +45,6 @@ def _add_kwargs(cls, member):
     orig = cls[member]
     if not orig:
         raise KeyError('No member named', member)
-    alias = ''
-    for idx, char in enumerate(member):
-        if char != char.upper():
-            alias += char
-        else:
-            if idx > 0:
-                alias += '_'
-            alias += char.lower()
-    logger.debug(orig + '>' + alias)
 
     __pragma__('kwargs')
 
@@ -61,7 +52,7 @@ def _add_kwargs(cls, member):
         return orig(name, kwargs, scene)
     __pragma__('nokwargs')
 
-    cls[alias] = kwargified
+    cls[member] = kwargified
 
 
 def _promote(member):
@@ -102,7 +93,7 @@ __pragma__('nojsiter')
 console.timeEnd('api initialized')
 
 
-# add pep-8 style versions of create functions with kwargs syntax
+# these are static creation unctions which want kwargs
 TAGS = ('CreateBox', 'CreateCylinder', 'CreateDashedLines', 'CreateDecal', 'CreateDisc', 'CreateGround',
         'CreateGroundFromHeightMap', 'CreateIcoSphere', 'CreateLathe', 'CreateLineSystem', 'CreateLines',
         'CreatePlane', 'CreatePolygon', 'CreatePolyhedron', 'CreateRibbon', 'CreateSphere',
