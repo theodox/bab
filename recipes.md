@@ -21,6 +21,11 @@ def timer(length, _):
     return __new__(Promise(timer_elapse, lambda: print("oops")))
 
 
+# registering keyboard input
+
+Have to be explicit about assigning the actionmgr to the right member 
+
+    stage.actionManager = api.ActionManager(stage)
 
 
 
