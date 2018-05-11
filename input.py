@@ -4,20 +4,12 @@ import math
 logger = logging.getLogger(__name__)
 
 
-class KeyState:
+PRESS = api.ActionManager.OnKeyDownTrigger
+RELEASE = api.ActionManager.OnKeyUpTrigger
 
-    def __init__(self, mgr):
-        self.keys = {}
-        mgr.registerAction(api.ExecuteCodeAction([mgr.OnKeyDownTrigger, self._keydown]))
-        mgr.registerAction(api.ExecuteCodeAction([mgr.OnKeyUpTrigger, self._keyup]))
 
-    def _keydown(self, event):
-        self.keys[event.source.key] = evt.sourceEvent.type == "keydown"
-        logger.debug("down: ", event.source.key)
-
-    def _keyup(self, event):
-        self.keys[event.source.key] = not (evt.sourceEvent.type == "keyup")
-        logger.debug("up: ", event.source.key)
+def keystroke(key, press_release, fn):
+    return api.ExecuteCodeAction({'trigger': press_release, 'parameter': key}, fn)
 
 
 class KeyAxis:
@@ -35,50 +27,16 @@ class KeyAxis:
         self.gain = gain
         self.decay = decay
         self.name = name
-          
-        fn = api.ExecuteCodeAction(
-                {
-                'trigger': BABYLON.ActionManager.OnKeyUpTrigger,
-                'parameter': self.positive_key
-                },
-                self._pos_up
-                )
-        mgr.registerAction(fn)  
 
-        fn = api.ExecuteCodeAction(
-                {
-                'trigger': BABYLON.ActionManager.OnKeyDownTrigger,
-                'parameter': self.positive_key
-                },
-                self._pos_dn
-                )
-        mgr.registerAction(fn) 
-
-        negfn = api.ExecuteCodeAction(
-                {
-                'trigger': BABYLON.ActionManager.OnKeyUpTrigger,
-                'parameter': self.negative_key
-                },
-                self._neg_up
-                )
-        mgr.registerAction(negfn)  
-
-
-        negfn2 = api.ExecuteCodeAction(
-                {
-                'trigger': BABYLON.ActionManager.OnKeyDownTrigger,
-                'parameter': self.negative_key
-                },
-                self._neg_dn
-                )
-        mgr.registerAction(negfn2)  
+        mgr.registerAction(keystroke(self.positive_key, PRESS, self._pos_dn))
+        mgr.registerAction(keystroke(self.positive_key, RELEASE, self._pos_up))
+        mgr.registerAction(keystroke(self.negative_key, PRESS, self._neg_dn))
+        mgr.registerAction(keystroke(self.negative_key, RELEASE, self._neg_up))
 
         logger.debug("registered {}" .format(self))
         KeyAxis.AXES[self.name] = self
 
     def update(self, timeslice):
-        if self._neg and self._pos:
-            self._neg = self._pos = False
 
         self.value += timeslice * self.gain * self._pos
         self.value -= timeslice * self.gain * self._neg
@@ -89,30 +47,22 @@ class KeyAxis:
             math.copysign(decay, self.value)
             self.value -= decay
             self.value = min(self.upper, max(self.lower, self.value))
-            self._pos = False
-            self._neg = False
 
         if self.value:
             logger.warn("+:{} -{}  v:{}".format(self._neg, self._pos, self.value))
 
-    def _keydown(self, event):
-        logger.debug("key event: {}".format(event))
-        self._pos = self._pos or event.sourceEvent.key == self.positive_key
-        self._neg = self._neg or event.sourceEvent.key == self.negative_key
-
     def _neg_up(e):
-        print ("neg up")
+        self._neg = False
 
     def _pos_up(e):
-        print( "pos up")
+        self._pos = False
 
     def _neg_dn(e):
-        print ("neg dn")
+        self._neg = True
 
     def _pos_dn(e):
-        print( "pos dn")
-
-
+        self._pos = True
+ 
     @classmethod
     def get(cls, name):
         return cls.AXES[name]
