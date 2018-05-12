@@ -2,3 +2,4 @@ add_camera	addCamera
 attach_control	attachControl
 add_light	addLight
 create_plane 	CreatePlane
+create_sphere	CreateSphere

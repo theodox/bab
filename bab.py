@@ -2,8 +2,9 @@ import bootstrap
 import org.babylonjs.api as api
 import org.babylonjs.globals as babylon
 from org.transcrypt.stubs.browser import __pragma__, setTimeout, Promise
-from input import KeyAxis
+from input import KeyAxis, ControlSet
 import logging
+import math
 
 logger = logging.getLogger(__name__)
 
@@ -13,27 +14,29 @@ engine = babylon.create_engine()
 stage = babylon.create_scene()
 babylon.activate_scene(stage)
 
-camera = api.FreeCamera("camera1", api.Vector3(0, 5, -10))
+camera = api.FreeCamera("camera1", api.Vector3(0, 0, -10))
 stage.add_camera(camera)
 camera.attach_control(babylon.get_canvas())
 api.MeshBuilder.create_plane("plane", stage, size=4, plane=api.Plane(0, -1, 0, 0))
 hlight = api.HemisphericLight('light1', api.Vector3(0, -1, 0))
 stage.actionManager = api.ActionManager(stage)
 
+sphere = api.MeshBuilder.create_sphere("sphere", stage)
 
 stage.add_light(hlight)
 
-leftright = KeyAxis('horiz', stage.actionManager, 'a', 's')
+leftright = KeyAxis('horiz', 'd', 'a', 120, 60)
+updown = KeyAxis('vert', 's', 'w', 60, 30)
+CS = ControlSet(leftright, updown)
+CS.register(stage)
 #    logger.debug("action: {}\n\t{}".format(type(entry), entry))
 
 #print (KeyAxis.get('horiz'))
 
 def poll():
-    pass
-    #print(engine.performanceMonitor.instantaneousFrameTime)
-    #leftright.update(engine.performanceMonitor.instantaneousFrameTime * 0.001)
+    sphere.setAbsolutePosition(api.Vector3(leftright.value, updown.value, 0))
 
-engine.runRenderLoop(poll)
+stage.onBeforeRenderObservable.add(poll)
 
 
 __pragma__('noalias', 'babylon_aliases')
