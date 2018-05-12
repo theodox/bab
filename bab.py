@@ -30,7 +30,7 @@ stage.add_light(plight)
 sphere = api.MeshBuilder.create_sphere("sphere", stage)
 bh = BehaviorBase('test')
 bh.attach(sphere)
-m = Mover('test2')
+m = Mover('test2', 1, 1)
 m.attach(sphere)
 
 leftright = KeyAxis('horiz', 'd', 'a', 120, 60)

@@ -29,33 +29,51 @@ class Heartbeat:
 
 class BehaviorBase:
     """Implements the Babylon Behavior interface"""
-    
-    def __init__(self, name):
+
+    def __init__(self, name, mouse=False, keyboard=False):
         self.name = name
         self.owner = None
-        self._pointer_observer = None
-        self._update_observer = None
+        self._ticker = None
         self._hearbeat = None
+        self._mouse = mouse
+        self._keyboard = keyboard
+
+    def init(self):
+        """this will be called when the behavior is attached"""
+        pass
 
     def attach(self, object):
         self.owner = object
         scene = object.getScene()
         self._hearbeat = Heartbeat.get(scene)
-        self._pointer_observer = scene.onPrePointerObservable.add(self.mouse_function)
-        self._update_observer = scene.onBeforeRenderObservable.add(self.tick)
+        self._ticker = scene.onBeforeRenderObservable.add(self.tick)
+        if self._mouse:
+            self._mouse = scene.onPrePointerObservable.add(self.mouse_function)
+        if self._keyboard:
+            self._keyboard = scene.onPreKeyboardObservable.add(self.keyboard_function)
 
     def detach(self):
         scene = self.owner.getScene()
-        scene.onPrePointerObservable.remove(self._pointer_observer)
-        scene.onBeforeRenderObservable.remove(self._update_observer)
+        scene.onBeforeRenderObservable.remove(self._ticker)
+        if self._mouse:
+            scene.onPrePointerObservable.remove(self._mouse)
+        if self._keyboard:
+            scene.onPreKeyboardObservable.remove(self._keyboard)
 
     def mouse_function(self, mouseinfo):
-        logger.debug(mouseinfo)
+        pass
+
+    def keyboard_function(self, keyInfo):
+        pass
 
     def tick(self):
-        logger.debug(self._hearbeat.last_frame_time)
+        pass
+
 
 class Mover (BehaviorBase):
+
+    def keyboard_function(self, evt):
+        print("got", evt)
 
     def tick(self):
         self.owner.scaling.scaleInPlace(1.0 + self._hearbeat.last_frame_time)
