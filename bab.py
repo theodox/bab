@@ -1,7 +1,7 @@
 import bootstrap
 import org.babylonjs.api as api
 import org.babylonjs.globals as babylon
-from behavior import BehaviorBase, Mover
+from behavior import Tickable, Mover, MonoBehavior
 from org.transcrypt.stubs.browser import __pragma__, setTimeout, Promise
 from input import KeyAxis, ControlSet
 import logging
@@ -28,10 +28,6 @@ stage.add_light(hlight)
 stage.add_light(plight)
 
 sphere = api.MeshBuilder.create_sphere("sphere", stage)
-bh = BehaviorBase('test')
-bh.attach(sphere)
-m = Mover('test2', 1, 1)
-m.attach(sphere)
 
 leftright = KeyAxis('horiz', 'd', 'a', 120, 60)
 updown = KeyAxis('vert', 'w', 's', 60, 30)
@@ -53,6 +49,14 @@ __pragma__('noalias', 'babylon_aliases')
 
 # Actual code to be tested
 
+boo = MonoBehavior(stage)
+boo.attach(sphere)
+
+bh = Tickable(stage)
+bh.attach(sphere)
+m = Mover(stage)
+m.attach(sphere)
+
 
 def timer(length, _):
     def timer_elapse(resolve):
@@ -71,6 +75,7 @@ async def f(waw, _):
     print('f1')
     w = await waw(5, _)
     print("got", w)
+    boo.detach()
 # Just call async functions for Transcrypt, since in the browser JavaScript is event driven by default
 
 if __envir__.executor_name == __envir__.transpiler_name:
