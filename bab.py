@@ -1,7 +1,7 @@
 import bootstrap
 import org.babylonjs.api as api
 import org.babylonjs.globals as babylon
-from behavior import Tickable, Mover, MonoBehavior
+from behavior import Tickable, BehaviorMeta
 from org.transcrypt.stubs.browser import __pragma__, setTimeout, Promise
 from input import KeyAxis, ControlSet
 import logging
@@ -27,66 +27,26 @@ stage.actionManager = api.ActionManager(stage)
 stage.add_light(hlight)
 stage.add_light(plight)
 
+
 sphere = api.MeshBuilder.create_sphere("sphere", stage)
 
 leftright = KeyAxis('horiz', 'd', 'a', 120, 60)
 updown = KeyAxis('vert', 'w', 's', 60, 30)
 CS = ControlSet(leftright, updown)
 CS.register(stage)
-#    logger.debug("action: {}\n\t{}".format(type(entry), entry))
-
-#print (KeyAxis.get('horiz'))
-
-
-def poll():
-    sphere.setAbsolutePosition(api.Vector3(leftright.value, updown.value, 0))
-
-
-stage.onBeforeRenderObservable.add(poll)
 
 
 __pragma__('noalias', 'babylon_aliases')
 
-# Actual code to be tested
+from shaders import ShaderLoader
 
-boo = MonoBehavior(stage)
-boo.attach(sphere)
+test = ShaderLoader(stage)
+async def assign():
+    result = await test.load_promise('tester')
+    sphere.material = result
+#test.load_promise('tester').then(assign)
+#print ("----")
+#test.load('tester')
+#assign()
 
-bh = Tickable(stage)
-bh.attach(sphere)
-m = Mover(stage)
-m.attach(sphere)
-
-
-def timer(length, _):
-    def timer_elapse(resolve):
-        def inner():
-            print("waited", length)
-            resolve(Date.now())
-        setTimeout(inner, length * 1000)
-        print("start waiting...")
-
-    return __new__(Promise(timer_elapse, lambda: print("oops")))
-
-
-async def f(waw, _):
-    print('f0')
-    await waw(2, _)
-    print('f1')
-    w = await waw(5, _)
-    print("got", w)
-    boo.detach()
-# Just call async functions for Transcrypt, since in the browser JavaScript is event driven by default
-
-if __envir__.executor_name == __envir__.transpiler_name:
-    f(timer, None)
-
-
-'''counter = 0
-def ticker():
-    nonlocal counter
-    counter += 1
-    if (counter % 60 == 0):
-        print("frame", counter)
-
-engine.runRenderLoop(ticker)'''
+test.load_async('tester').then(lambda x: print (x.material))
