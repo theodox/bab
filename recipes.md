@@ -94,6 +94,36 @@ Have to be explicit about assigning the actionmgr to the right member
 
 implemented in the bevavior module.  Don't forget to call super() in the __init__ and to use the @observable decorator to hook into frame event
 
+Inherit from `Tickable` and override `tick(self, deltatime)`  to implement a ticking behavior.  
+
+
+# simple physics:
+
+enable physics:
+
+    physics = api.CannonJSPlugin()
+    scene.enablePhysics(api.Vector3(0,-9.8,0), physics)
+
+Add physics body to object:
+
+    sphere = api.MeshBuilder.create_sphere("sphere", stage)
+    imp = api.PhysicsImpostor(sphere, api.PhysicsImpostor.SphereImpostor, {'mass': 1})
+
+Add an impulse to the imposter:
+
+    imp.applyImpulse(api.Vector3(2,0,0), sphere.getAbsolutePosition()) 
+
+Can apply impulse some other location than the pivot...
+
+Detect collision (take one or more targets as args)
+
+    def on_hit_box(me, him):
+        print (me.object, "hit", him.object)
+
+    imp.registerOnPhysicsCollide(boxes, on_hit_box)
+
+Note everything collides; not everything triggers event
+
 
 Transcrypt
 ===========

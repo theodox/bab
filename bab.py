@@ -46,11 +46,13 @@ imp = api.PhysicsImpostor(sphere, api.PhysicsImpostor.SphereImpostor, {'mass': 1
 
 # make some obstacles
 
+boxes = []
 for item in ( (3.5,3.5), (5,5), (2,0), (0, 2)):
     x, z = item
     obst = api.MeshBuilder.create_box('cube_{}_{}'.format(x,z), stage)
     obst.position = api.Vector3(x, 5.0, z)
     coll = api.PhysicsImpostor(obst, api.PhysicsImpostor.BoxImpostor, {'mass': 0.1, 'restitution': 0.9})
+    boxes.append(coll)
 
 leftright = KeyAxis('horiz', 'd', 'a', 120, 60)
 updown = KeyAxis('vert', 'w', 's', 60, 30)
@@ -69,9 +71,16 @@ class Steer (Tickable):
         x = api.Vector3(self.h.value,0,self.v.value) 
         imp.applyImpulse(x, sphere.getAbsolutePosition()) 
 
+
 st = Steer(stage, leftright, updown)
 st.attach(sphere)
-document.getElementById('game_canvas').focus();
+
+def on_hit_box(me, him):
+    print (me.object, "hit", him.object)
+
+imp.registerOnPhysicsCollide(boxes, on_hit_box)
+
+document.getElementById('game_canvas').focus()
 
 __pragma__('noalias', 'babylon_aliases')
 
