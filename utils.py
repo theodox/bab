@@ -1,4 +1,5 @@
 import math
+import org.babylonjs as api
 
 """module for utility math functions"""
 
@@ -27,3 +28,4 @@ def ease_out(num: float, lower: float, upper: float) -> float:
     p = clamp(num, lower, upper) - lower / (upper - lower)
     alpha = math.pow(p, 0.5)
     return lerp(alpha, lower, upper)
+

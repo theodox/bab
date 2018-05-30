@@ -62,8 +62,8 @@ class KeyAxis:
     def _pos_dn(self, e):
         self._pos = 1
 
-    def __repr__(self):
-        return ("<KeyAxis {0} {1}>".format(self.name, self.value))
+    def __str__(self):
+        return ("<KeyAxis: '{0}' {1}>".format(self.name, self.value))
 
 
 class ControlSet:
@@ -110,4 +110,4 @@ class ControlSet:
         logger.debug("input deregistered from {}".format(scene))
 
     def __repr__(self):
-        return ("<ControlSet {0} >".format(len(self.axes)))
+        return ("<ControlSet ({0}) >".format(len(self.axes)))

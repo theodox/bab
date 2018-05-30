@@ -15,7 +15,11 @@ def _js_class(api_object):
 
     # allows for 'static' functions too
     window.Object.setPrototypeOf(BabylonAPIObject, api_object)
-    api_object['__str__'] = api_object.toString
+
+    def toStr(self):
+        name = self.Name or '?'
+        return "< {} : '{}' >".format(api_object.name, name)
+    api_object['__str__'] = toStr
     return BabylonAPIObject
 
 

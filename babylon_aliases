@@ -1,5 +1,12 @@
+#camera
+set_target setTarget
 add_camera	addCamera
 attach_control	attachControl
+#Scene
 add_light	addLight
+add_action_manager addActionManager
+#MeshBuilder
 create_plane 	CreatePlane
 create_sphere	CreateSphere
+create_ground	CreateGround
+create_box	CreateBox
