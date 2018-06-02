@@ -1,4 +1,6 @@
 from org.transcrypt.stubs.browser import __pragma__, __new__, window, this, console, __include__, __all__
+from org.babylonjs import bootstrap
+from org.babylonjs.reflection import ClassFactory, construct
 import logging
 logger = logging.getLogger(__name__)
 
@@ -6,106 +8,147 @@ logger = logging.getLogger(__name__)
 __pragma__('noanno')
 
 
-def _js_class(api_object):
-    '''
-    Add python-style constructor, but preserve static methods from the original class
-    '''
-    def BabylonAPIObject(*args):
-        return __new__(api_object(*args))
+def _load_api():
 
-    # allows for 'static' functions too
-    window.Object.setPrototypeOf(BabylonAPIObject, api_object)
+    # not all functions are defined here to keep the scope clean
 
-    def toStr(self):
-        name = self.Name or '?'
-        return "< {} : '{}' >".format(api_object.name, name)
-    api_object['__str__'] = toStr
-    return BabylonAPIObject
+    def _js_class(api_key, api_object):
+        '''
+        Add python-style constructor, but preserve static methods from the original class
+        '''
 
+        result = construct(api_key, api_object, __name__)
+        return api_key, result
 
-def _js_math_class(obj, add='add', subtract='subtract', multiply='multiply', divide='divide', equals='equals'):
-    '''
-    Add python constructor and python magic methods for operator overloading
-    if necessary, use kwargs to choose the native function that
-    becomes a magic method
-    '''
-    obj.prototype['__add__'] = obj.prototype[add]
-    obj.prototype['__sub__'] = obj.prototype[subtract]
-    obj.prototype['__mul__'] = obj.prototype[multiply]
-    obj.prototype['__truediv__'] = obj.prototype[divide]
-    obj.prototype['__eq__'] = obj.prototype[equals]
+    def _js_math_class(api_key, api_object):
+        '''
+        Add python constructor and python magic methods for operator overloading
+        if necessary, use kwargs to choose the native function that
+        becomes a magic method
+        '''
+        proto = api_object.prototype
+        proto.__add__ = proto.add
+        proto.__sub__ = proto.subtract
+        proto.__mul__ = proto.multiply
+        proto.__truediv__ = proto.divide
+        proto.__eq__ = proto.equals
 
-    def _ne_(other):
-        return not (this.__eq__(other))
+        def _ne_(other):
+            return not (this.__eq__(other))
 
-    obj.prototype['__ne__'] = _ne_
+        proto.__ne__ = _ne_
 
-    base = _js_class(obj)
-    return base
+        return _js_class(api_key, api_object)
 
+    def _js_vec3(api_key, api_object):
 
-def _add_kwargs(cls, member):
+        def vec3mul(other):
+            if other['_width'] == this._width:
+                return this.multiply(other)
+            return this.scale(other)
 
-    orig = cls[member]
-    if not orig:
-        raise KeyError('No member named', member)
+        def vec3div(other):
+            if other['_width'] == this._width:
+                return this.divide(other)
+            return this.scale(1.0 / other)
 
-    __pragma__('kwargs')
+        def vec3imul(other):
+            if other['_width'] == this['_width']:
+                return this.multiplyInPlace(other)
+            return this.scaleInPlace(other)
 
-    def kwargified(name, scene, **kwargs):
-        return orig(name, kwargs, scene)
-    __pragma__('nokwargs')
+        def vec3idiv(other):
+            if other['_width'] == this['_width']:
+                return this.divideInPlace(other)
+            return this.scaleInPlace(1.0 / other)
 
-    cls[member] = kwargified
+        def vec3rmul(other):
+            return this.__mul__(other)
 
+        def vec3rdiv(other):
+            return this.__truediv__(other)
 
-def _promote(member):
-    '''
-    apply wrappers to js_classes where appropriate
-    '''
-    if member.hasOwnProperty('prototype') and member.prototype.hasOwnProperty('constructor'):
-        if member.prototype.hasOwnProperty('multiply'):
-            # return with magic methods for fast operator overload
-            return _js_math_class(member)
+        proto = api_object.prototype
+        proto._width = 3
+        proto.__mul__ = vec3mul
+        proto.__imul__ = vec3imul
+        proto.__truediv__ = vec3div
+        proto.__itruediv__ = vec3idiv
+        proto.__rmul__ = vec3rmul
+        proto.__rtruediv__ = vec3rdiv
+        proto.__add__ = proto['add']
+        proto.__iadd__ = proto['addInPlace']
+        proto.__sub__ = proto['subtract']
+        proto.__isub__ = proto['subtractInPlace']
+        proto.__eq__ = proto['equals']
 
-        # return wrapped with a python constructor
-        return _js_class(member)
+        def vec3ne(other):
+            return not (this.__eq__(other))
 
-    # this is something like a constant or static class
-    # return unwrapped
-    return member
+        proto.__ne__ = vec3ne
+
+        return _js_class(api_key, api_object)
+
+    def _promote(classname, member):
+        '''
+        apply wrappers to js_classes where appropriate
+        '''
+
+        if classname == 'Vector3':
+            return _js_vec3(classname, member)
+
+        if member.prototype:
+            if member.prototype.hasOwnProperty('multiply'):
+                # return with magic methods for fast operator overload
+                return _js_math_class(classname, member)
+            else:
+                # return wrapped with a python constructor
+                return _js_class(classname, member)
+
+        # this is something like a constant or static class
+        # return unwrapped
+        return classname, member
+
+    # wrap api classes where useful, promote to
+    # the __all__ namespace of this so they look like
+    # memberts for import
+    console.time('api initialized')
+
+    ClassFactory(window.BABYLON, __all__).reflect(_promote)
+
+    console.timeEnd('api initialized')
+
+    def _add_kwargs(cls, member):
+        """convert the syntax of the meshbuilder, which is ugly"""
+        __pragma__('ifndef', 'release')
+        orig = cls[member]
+        if not orig:
+            raise KeyError('No member named', member)
+        __pragma__('endif')
+
+        __pragma__('kwargs')
+
+        def kwargified(name, scene, **kwargs):
+            return orig(name, kwargs, scene)
+        __pragma__('nokwargs')
+
+        cls[member] = kwargified
+
+    # these are static creation unctions which want kwargs
+    TAGS = ('CreateBox', 'CreateCylinder', 'CreateDashedLines', 'CreateDecal', 'CreateDisc', 'CreateGround',
+            'CreateGroundFromHeightMap', 'CreateIcoSphere', 'CreateLathe', 'CreateLineSystem', 'CreateLines',
+            'CreatePlane', 'CreatePolygon', 'CreatePolyhedron', 'CreateRibbon', 'CreateSphere',
+            'CreateTiledGround', 'CreateTorus', 'CreateTorusKnot', 'CreateTube')
+
+    mb = __all__['MeshBuilder']
+    for tag in TAGS:
+        _add_kwargs(mb, tag)
+
 
 
 # load the Babylonjs module into __all__
 console.time('babylonjs loaded')
-__pragma__('js', '{}', __include__(
-    'org/babylonjs/__javascript__/babylon.custom.js'))
+__pragma__('js', '{}', __include__('org/babylonjs/__javascript__/babylon.custom.js'))
 console.timeEnd('babylonjs loaded')
 
-
-# wrap api classes where useful, promote to
-# the __all__ namespace of this so they look like
-# memberts for import
-console.time('api initialized')
-
-__pragma__('jsiter')
-for _k in window.BABYLON:
-    if not _k.startswith('_'):
-        __all__[_k] = _promote(window.BABYLON[_k])
-__pragma__('nojsiter')
-
-console.timeEnd('api initialized')
-
-
-# these are static creation unctions which want kwargs
-TAGS = ('CreateBox', 'CreateCylinder', 'CreateDashedLines', 'CreateDecal', 'CreateDisc', 'CreateGround',
-        'CreateGroundFromHeightMap', 'CreateIcoSphere', 'CreateLathe', 'CreateLineSystem', 'CreateLines',
-        'CreatePlane', 'CreatePolygon', 'CreatePolyhedron', 'CreateRibbon', 'CreateSphere',
-        'CreateTiledGround', 'CreateTorus', 'CreateTorusKnot', 'CreateTube')
-
-mb = __all__['MeshBuilder']
-for tag in TAGS:
-    _add_kwargs(mb, tag)
-
-# clean up the one-time functions
-del TAGS, _promote, _js_class, _js_math_class, _add_kwargs
+_load_api()

@@ -12,8 +12,7 @@ def _gui_class_factory(api_key, api_object):
     logger.debug(api_key)
     __pragma__('endif')
 
-    BabylonGUIObject = construct(api_object, api_key, __name__)
-
+    BabylonGUIObject = construct(api_key, api_object, __name__)
 
     return api_key, BabylonGUIObject
 

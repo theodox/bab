@@ -1,7 +1,7 @@
 from org.transcrypt.stubs.browser import __pragma__, __new__, window
 
 
-def construct(cls, cls_name, module):
+def construct(cls_name, cls, module):
     """returns a wrapping constructor coll for 'cls', which should be am api object"""
     def __init__(*args):
         return __new__(cls(*args))
@@ -29,8 +29,13 @@ class ClassFactory:
         for eachobj in self.original:
             if not eachobj.startswith('_'):
                 api_obj = self.original[eachobj]
+                if not api_obj.hasOwnProperty('prototype'):
+                    self.namespace[eachobj] = api_obj
+                    continue
                 new_name, result = handler(eachobj, api_obj)
-                if result is not None:
+                if result is None:
+                    self.namespace[new_name] = api_obj
+                else:
                     self.namespace[new_name] = result
                     api_obj.prototype.__class__ = result
                     window.Object.setPrototypeOf(result, api_obj)
