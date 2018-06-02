@@ -1,5 +1,6 @@
 import logging
 from org.babylonjs.api import Tools
+from org.transcrypt.stubs.browser import __pragma__
 
 logger = logging.getLogger(__name__)
 
