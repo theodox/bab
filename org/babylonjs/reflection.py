@@ -1,3 +1,5 @@
+from org.transcrypt.stubs.browser import __pragma__, __new__, window
+
 
 def construct(cls, cls_name, module):
     """returns a wrapping constructor coll for 'cls', which should be am api object"""
@@ -13,6 +15,8 @@ def construct(cls, cls_name, module):
 
 
 class ClassFactory:
+    """iterate over a namespace and apply a factory function to
+    all js classes in it.  Promote them to the owning module"""
 
     def __init__(self, original, namespace):
         self.namespace = namespace
@@ -24,7 +28,6 @@ class ClassFactory:
 
         for eachobj in self.original:
             if not eachobj.startswith('_'):
-                proto = eachobj.prototype if eachobj.hasOwnProperty('prototype') else None
                 api_obj = self.original[eachobj]
                 new_name, result = handler(eachobj, api_obj)
                 if result is not None:
