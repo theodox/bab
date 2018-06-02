@@ -29,3 +29,6 @@ def ease_out(num: float, lower: float, upper: float) -> float:
     alpha = math.pow(p, 0.5)
     return lerp(alpha, lower, upper)
 
+def yaw_vector(yaw):
+    """returns a normalized yaw vector in the x-z plane for yaw, where a yaw of 0 produces (0,0, 1)"""
+    return api.Vector3(math.sin(yaw), 0, -1 * math.cos(yaw))

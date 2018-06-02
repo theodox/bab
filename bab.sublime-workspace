@@ -4,6 +4,86 @@
 		"selected_items":
 		[
 			[
+				"pr",
+				"process\tfunction"
+			],
+			[
+				"thr",
+				"throttle_response\tstatement"
+			],
+			[
+				"__p",
+				"__pragma__\tmodule"
+			],
+			[
+				"has",
+				"hasOwnProperty"
+			],
+			[
+				"cons",
+				"constructor"
+			],
+			[
+				"ge",
+				"getClassName"
+			],
+			[
+				"cla",
+				"classname\tstatement"
+			],
+			[
+				"v",
+				"vec3ne\tfunction"
+			],
+			[
+				"ve",
+				"vec3div\tfunction"
+			],
+			[
+				"prot",
+				"prototype"
+			],
+			[
+				"js",
+				"_js_class"
+			],
+			[
+				"pro",
+				"proto\tstatement"
+			],
+			[
+				"vec3",
+				"vec3math\tstatement"
+			],
+			[
+				"vec",
+				"vec3imul\tfunction"
+			],
+			[
+				"_j",
+				"_js_math_class\tfunction"
+			],
+			[
+				"K",
+				"Kinematics\tclass"
+			],
+			[
+				"k",
+				"kinematic\tmodule"
+			],
+			[
+				"x",
+				"x_response\tstatement"
+			],
+			[
+				"add",
+				"addShadowCaster"
+			],
+			[
+				"gr",
+				"gravity"
+			],
+			[
 				"contro",
 				"attach_control"
 			],
@@ -102,14 +182,6 @@
 			[
 				"it",
 				"iter_bases\tfunction"
-			],
-			[
-				"__p",
-				"__pragma__"
-			],
-			[
-				"cla",
-				"classmethod\tclass"
 			],
 			[
 				"b",
@@ -220,10 +292,6 @@
 				"pop"
 			],
 			[
-				"ge",
-				"get_next"
-			],
-			[
 				"uv",
 				"uv_dict"
 			],
@@ -258,10 +326,6 @@
 			[
 				"log",
 				"log\tDebug.*(message, context)"
-			],
-			[
-				"cons",
-				"console\tDeviceType.*"
 			],
 			[
 				"o",
@@ -450,182 +514,25 @@
 			[
 				"_",
 				"_Fred"
-			],
-			[
-				"pos",
-				"position\tTransform.*"
-			],
-			[
-				"gameo",
-				"gameObject\t[class]"
-			],
-			[
-				"SetPar",
-				"SetParent\tTransform.*(parent, worldPositionStays)"
-			],
-			[
-				"tr",
-				"transform\t[class]"
-			],
-			[
-				"Tras",
-				"Transform.localScale\t[property]"
-			],
-			[
-				"transfor",
-				"transform\t[class]"
-			],
-			[
-				"trans",
-				"transform\t[class]"
-			],
-			[
-				"t",
-				"transform"
-			],
-			[
-				"U",
-				"UnityEngine"
-			],
-			[
-				"S",
-				"System"
-			],
-			[
-				"ee",
-				"edges"
-			],
-			[
-				"E",
-				"edges"
-			],
-			[
-				"l",
-				"lambda"
-			],
-			[
-				"h",
-				"hash"
-			],
-			[
-				"co",
-				"counter"
-			],
-			[
-				"fir",
-				"first_facet"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "bitmap.py",
+			"file": "org/babylonjs/gui.py",
 			"settings":
 			{
-				"buffer_size": 4393,
+				"buffer_size": 712,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "content.py",
-			"settings":
-			{
-				"buffer_size": 95,
-				"encoding": "UTF-8",
-				"line_ending": "Windows",
-				"name": "import logging"
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "bab.py",
 			"settings":
 			{
-				"buffer_size": 2327,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "behavior.py",
-			"settings":
-			{
-				"buffer_size": 8269,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "babylon_aliases",
-			"settings":
-			{
-				"buffer_size": 254,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "recipes.md",
-			"settings":
-			{
-				"buffer_size": 2875,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "import org.babylonjs as babylon\n\n\n",
-			"file": "terrain/__init__,py",
-			"file_size": 37,
-			"file_write_time": 131676942740132633,
-			"settings":
-			{
-				"buffer_size": 34,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "input.py",
-			"settings":
-			{
-				"buffer_size": 3376,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/C/Users/steve/Documents/New Unity Project/Assets/Behave.cs",
-			"settings":
-			{
-				"buffer_size": 298,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "import random\n\nWATER = 'water'\n\nclass PropertyObject:\n\tID = 'abstract'\n\n\tdef __init__(self):\n\t\tself.amount = 0\n\t\tself.max = 1.0\n\t\tself.min = 0.0\n\n\t",
-			"file": "map.py",
-			"file_size": 159,
-			"file_write_time": 131687597718248308,
-			"settings":
-			{
-				"buffer_size": 147,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "game.py",
-			"settings":
-			{
-				"buffer_size": 1561,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "utils.py",
-			"settings":
-			{
-				"buffer_size": 848,
+				"buffer_size": 2504,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -634,25 +541,15 @@
 			"file": "org/babylonjs/api.py",
 			"settings":
 			{
-				"buffer_size": 3344,
-				"encoding": "UTF-8",
+				"buffer_size": 4888,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "org/babylonjs/__init__.py",
+			"file": "org/babylonjs/reflection.py",
 			"settings":
 			{
-				"buffer_size": 66,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "shaders.py",
-			"settings":
-			{
-				"buffer_size": 1917,
+				"buffer_size": 820,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -690,12 +587,48 @@
 				"Anaconda: Autoformat PEP8 Errors"
 			],
 			[
-				"git qui",
-				"git: quick stage"
+				"pyt",
+				"Set Syntax: Python"
+			],
+			[
+				"errors",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"error",
+				"Anaconda: Autoformat PEP8 Errors"
 			],
 			[
 				"pep8",
 				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"erro",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"git stage ",
+				"git: quick stage"
+			],
+			[
+				"git commit",
+				"git: quick commit"
+			],
+			[
+				"stage",
+				"git: quick stage"
+			],
+			[
+				"git q\t",
+				"git: quick stage"
+			],
+			[
+				"git qui",
+				"git: quick stage"
 			],
 			[
 				"syntax jso",
@@ -704,10 +637,6 @@
 			[
 				"git  stag",
 				"git: quick stage current file and commit"
-			],
-			[
-				"git commit",
-				"git: quick commit"
 			],
 			[
 				"gitcom",
@@ -888,18 +817,33 @@
 	"expanded_folders":
 	[
 		"/C/Users/steve/prj/bab",
-		"/C/Users/steve/prj/bab/__javascript__",
-		"/C/Users/steve/prj/bab/development",
+		"/C/Users/steve/prj/bab/behaviors",
+		"/C/Users/steve/prj/bab/behaviors/__javascript__",
 		"/C/Users/steve/prj/bab/org",
-		"/C/Users/steve/prj/bab/org/babylonjs",
-		"/C/Users/steve/prj/bab/org/babylonjs/__javascript__",
-		"/C/Users/steve/prj/bab/src",
-		"/C/Users/steve/prj/bab/src/shaders",
-		"/C/Users/steve/prj/bab/src/shaders/terrain"
+		"/C/Users/steve/prj/bab/org/babylonjs"
 	],
 	"file_history":
 	[
+		"/C/Users/steve/prj/bab/bitmap.py",
+		"/C/Users/steve/prj/bab/content.py",
+		"/C/Users/steve/prj/bab/bab.py",
+		"/C/Users/steve/prj/bab/org/babylonjs/globals.py",
+		"/C/Users/steve/prj/bab/org/babylonjs/bootstrap.py",
+		"/C/Users/steve/prj/bab/index.html",
+		"/C/Users/steve/prj/bab/behaviors/__init__.py",
+		"/C/Users/steve/prj/bab/babylon_aliases",
+		"/C/Users/steve/prj/bab/recipes.md",
+		"/C/Users/steve/prj/bab/input.py",
+		"/C/Users/steve/prj/bab/behaviors/kinematic.py",
+		"/C/Users/steve/prj/bab/utils.py",
+		"/C/Users/steve/prj/bab/org/babylonjs/api.py",
+		"/C/Users/steve/prj/bab/terrain/__init__,py",
+		"/C/Users/steve/prj/bab/org/babylonjs/__init__.py",
 		"/C/Users/steve/prj/bab/shaders.py",
+		"/C/Users/steve/prj/bab/__javascript__/bab.js",
+		"/C/Users/steve/Documents/New Unity Project/Assets/Behave.cs",
+		"/C/Users/steve/prj/bab/map.py",
+		"/C/Users/steve/prj/bab/game.py",
 		"/C/Users/steve/prj/bab/src/shaders/tester.shader",
 		"/C/Users/steve/prj/bab/behavior.py",
 		"/Users/stevet/Library/Application Support/Sublime Text 3/Packages/User/Anaconda.sublime-settings",
@@ -1007,26 +951,7 @@
 		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Goddamit,_stop_messing_around.md",
 		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Grrrr....._Maya!!!.md",
 		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Handy_link:_Python_string_format_cookbook.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/I_don't_endorse_this....md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/untitled_204.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Hm_-_sorry_for_jumping_the_gun._I_downloaded_the_2....md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Embedding_IronPython_in_Unity_=_Tech-art_hog_heaven.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Good_tricks.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/First_find_of_2014:_A_Scriptable_DCC_app_in_the_browser?!?!.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Enter,_the_Chimaera.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Earth_calling_maya.standalone!.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Dot_Net_is_Open?.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Didn't_need_those_eyeballs_anyway!.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Dot_Matrix.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Dot's_all,_folks.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Descriptors_and_pythonic_Maya_properties.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Dang.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/code_wars.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Comments_requested.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Con_Job.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Coderscrowd.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Classic_CG:__La_plus_ca_change.md",
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Chromosaurus!.md"
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/I_don't_endorse_this....md"
 	],
 	"find":
 	{
@@ -1045,6 +970,16 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"__pr",
+			"yaw",
+			"print",
+			"self",
+			"v",
+			"h",
+			"applyGr",
+			"collideWithWorld",
+			"collideW",
+			"gravity",
 			"assetsmanager",
 			"right_vector",
 			"aim_vector",
@@ -1055,10 +990,11 @@
 		],
 		"highlight": true,
 		"in_selection": false,
-		"preserve_case": false,
+		"preserve_case": true,
 		"regex": true,
 		"replace_history":
 		[
+			"this"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -1069,56 +1005,24 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "bitmap.py",
+					"file": "org/babylonjs/gui.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4393,
+						"buffer_size": 712,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								40,
-								40
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"git_savvy.repo_path": "C:\\Users\\steve\\prj\\bab",
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3017.6,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "content.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 95,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								95,
-								95
+								259,
+								259
 							]
 						],
 						"settings":
@@ -1132,222 +1036,35 @@
 								{
 									"characters": ".",
 									"selector": "source.python - string - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
 								}
 							],
-							"auto_name": "import logging",
 							"git_gutter_is_enabled": true,
 							"git_savvy.repo_path": "C:\\Users\\steve\\prj\\bab",
+							"open_with_edit": true,
 							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "bab.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2327,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2240,
-								2240
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": ".",
-									"selector": "source.python - string - comment - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								}
-							],
-							"git_gutter_is_enabled": true,
-							"git_savvy.repo_path": "C:\\Users\\steve\\prj\\bab",
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1408.8,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "behavior.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8269,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5200,
-								5200
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"git_savvy.repo_path": "C:\\Users\\steve\\prj\\bab",
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4844.8,
+						"translation.y": 76.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "babylon_aliases",
+					"buffer": 1,
+					"file": "bab.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 254,
+						"buffer_size": 2504,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								244,
-								244
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"git_savvy.repo_path": "C:\\Users\\steve\\prj\\bab",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "recipes.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2875,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2433,
-								2433
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"git_savvy.repo_path": "C:\\Users\\steve\\prj\\bab",
-							"syntax": "Packages/MarkdownEditing/Markdown.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2198.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "terrain/__init__,py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 34,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": false,
-							"git_savvy.repo_path": "C:\\Users\\steve\\prj\\bab",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "input.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3376,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2675,
-								2675
+								303,
+								303
 							]
 						],
 						"settings":
@@ -1364,68 +1081,6 @@
 								}
 							],
 							"git_gutter_is_enabled": true,
-							"git_savvy.repo_path": "C:\\Users\\steve\\prj\\bab",
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2154.4,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "/C/Users/steve/Documents/New Unity Project/Assets/Behave.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 298,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								295,
-								295
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": false,
-							"syntax": "Packages/C#/C#.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "map.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 147,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": false,
 							"git_savvy.repo_path": "C:\\Users\\steve\\prj\\bab",
 							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
@@ -1433,114 +1088,28 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
-					"file": "game.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1561,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								196,
-								196
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"git_savvy.repo_path": "C:\\Users\\steve\\prj\\bab",
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 649.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "utils.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 848,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								40,
-								40
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": ".",
-									"selector": "source.python - string - comment - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								}
-							],
-							"git_gutter_is_enabled": true,
-							"git_savvy.repo_path": "C:\\Users\\steve\\prj\\bab",
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
+					"buffer": 2,
 					"file": "org/babylonjs/api.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3344,
+						"buffer_size": 4888,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								543,
-								543
+								4249,
+								4249
 							]
 						],
 						"settings":
 						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": ".",
-									"selector": "source.python - string - comment - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								}
-							],
 							"git_gutter_is_enabled": true,
 							"git_savvy.repo_path": "C:\\Users\\steve\\prj\\bab",
 							"syntax": "Packages/Python/Python.sublime-syntax",
@@ -1548,74 +1117,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 146.0,
+						"translation.y": 3382.4,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
-					"file": "org/babylonjs/__init__.py",
+					"buffer": 3,
+					"file": "org/babylonjs/reflection.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 66,
+						"buffer_size": 820,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								66,
-								66
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": ".",
-									"selector": "source.python - string - comment - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								}
-							],
-							"git_gutter_is_enabled": true,
-							"git_savvy.repo_path": "C:\\Users\\steve\\prj\\bab",
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "shaders.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1917,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
+								632,
+								632
 							]
 						],
 						"settings":
@@ -1633,15 +1155,14 @@
 							],
 							"git_gutter_is_enabled": true,
 							"git_savvy.repo_path": "C:\\Users\\steve\\prj\\bab",
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"open_with_edit": true,
+							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 598.0,
+						"translation.y": 68.8,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -1706,7 +1227,7 @@
 	"project": "bab.sublime-project",
 	"replace":
 	{
-		"height": 64.0
+		"height": 98.0
 	},
 	"save_all_on_build": true,
 	"select_file":

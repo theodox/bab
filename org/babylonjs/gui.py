@@ -9,7 +9,6 @@ def _gui_class_factory(api_key, api_object):
     '''
     __pragma__('ifndef', 'release')
     assert (api_object is not None)
-    logger.debug(api_key)
     __pragma__('endif')
 
     BabylonGUIObject = construct(api_key, api_object, __name__)

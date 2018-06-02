@@ -125,6 +125,10 @@ Detect collision (take one or more targets as args)
 Note everything collides; not everything triggers event
 
 
+# pure kinematic movement
+
+Use `.moveWithCollisions(Vector)`  but the vector has to include gravity -- 'applyGravity' (in the docs) only works on Cameras. 
+
 Transcrypt
 ===========
 

@@ -5,8 +5,17 @@ attach_control	attachControl
 #Scene
 add_light	addLight
 add_action_manager addActionManager
+
 #MeshBuilder
 create_plane 	CreatePlane
 create_sphere	CreateSphere
 create_ground	CreateGround
 create_box	CreateBox
+
+#Vector3
+scale_by	scale_in_place
+copy_from_floats  copyFromFloats
+
+#Transform
+move_with_collisions	moveWithCollisions
+add_rotation	addRotation
