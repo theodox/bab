@@ -47,8 +47,8 @@ class FPSCounter(HUDItem):
         self.engine.onBeginFrameObservable.add(self.update)
 
     def update(self):
-        afps = int (self.engine.performanceMonitor.averageFrameTime * 100) / 100.0
-        ms = str(afps)[:4]
+        afps = int (self.engine.performanceMonitor.averageFrameTime)
+        ms = str(afps)
         self.text = "{} ms".format(ms)
         if afps < 20:
             self.color = '#b0f442'
@@ -76,10 +76,15 @@ class HUD:
         self.layout.addControl(item.msg)
 
     def remove(self, item):
-        self.layout.remove(item.msg)
+        self.layout.removeControl(item.msg)
 
     def hide(self):
         self.canvas.isVisible = False
 
     def show(self):
         self.canvas.isVisible = True
+
+    def flash(self, message):
+        msg = HUDItem(message, message)
+        self.add(msg)
+        setTimeout(lambda: self.remove(msg), 2500)

@@ -95,14 +95,12 @@ def _load_api():
         '''
 
         if classname == 'Vector3':
-            return _js_vec3(classname, member)
+            return _js_vec3(classname, member)  
 
         if member.prototype:
             if member.prototype.hasOwnProperty('multiply'):
-                # return with magic methods for fast operator overload
                 return _js_math_class(classname, member)
             else:
-                # return wrapped with a python constructor
                 return _js_class(classname, member)
 
         # this is something like a constant or static class
@@ -143,6 +141,7 @@ def _load_api():
     mb = __all__['MeshBuilder']
     for tag in TAGS:
         _add_kwargs(mb, tag)
+
 
 
 

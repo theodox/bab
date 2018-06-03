@@ -17,12 +17,12 @@ __pragma__('alias', 'babylon_aliases')
 engine = babylon.create_engine()
 stage = babylon.create_scene(activate=True, physics=True)
 hud = HUD()
-example = HUDItem('test', 'hello world')
-example.color = 'white'
+example = HUDItem('test', 'babylonjs')
 
 fps = FPSCounter(engine)
 hud.add(example)
 hud.add(fps)
+hud.flash("hello world")
 
 camera = api.UniversalCamera("camera1", api.Vector3(10, 10, -10))
 camera.set_target(api.Vector3.Zero())
