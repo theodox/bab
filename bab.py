@@ -1,9 +1,11 @@
 import org.babylonjs.api as api
 import org.babylonjs.globals as babylon
-from behaviors.kinematic import KinematicBehavior, SteeringBehavior
-from org.transcrypt.stubs.browser import __pragma__, setTimeout, Promise
+from behaviors.kinematic import SteeringBehavior
+from org.transcrypt.stubs.browser import __pragma__  # , setTimeout, Promise
 from input import KeyAxis, ControlSet
 import logging
+from org.babylonjs.hud import HUD, HUDItem, FPSCounter
+
 import math
 
 import org.babylonjs.gui as gui
@@ -14,9 +16,13 @@ __pragma__('alias', 'babylon_aliases')
 
 engine = babylon.create_engine()
 stage = babylon.create_scene(activate=True, physics=True)
+hud = HUD()
+example = HUDItem('test', 'hello world')
+example.color = 'white'
 
-adt = gui.AdvancedDynamicTexture('fred', 1024, 1024,stage)
-print(adt)
+fps = FPSCounter(engine)
+hud.add(example)
+hud.add(fps)
 
 camera = api.UniversalCamera("camera1", api.Vector3(10, 10, -10))
 camera.set_target(api.Vector3.Zero())
