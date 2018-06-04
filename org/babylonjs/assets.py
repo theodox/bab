@@ -42,7 +42,7 @@ class AssetTask:
         # this has to go back to the window.BABYLON version -- importing via
         # Transcrypt does not work
         window.BABYLON.AssetsManager.prototype['add' + cls.__name__] = task_adder
-        logger.debug("registered {} with AssetsManager".format(cls.__name__))
+        logger.debug("registered add{} with AssetsManager".format(cls.__name__))
 
     def succeeded(self, scene, data):
         """override in derived classes to handle data on load"""
