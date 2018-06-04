@@ -1,6 +1,6 @@
 import org.babylonjs.api as api
 import org.babylonjs.globals as babylon
-from behaviors.kinematic import SteeringBehavior
+from org.babylonjs.behaviors.kinematic import SteeringBehavior
 from org.transcrypt.stubs.browser import __pragma__  # , setTimeout, Promise
 from input import KeyAxis, ControlSet
 import logging
@@ -29,7 +29,11 @@ camera.set_target(api.Vector3.Zero())
 stage.add_camera(camera)
 camera.attach_control(babylon.get_canvas())
 
-ground = api.MeshBuilder.create_ground("gd", stage, width=50, height=50, subdivsions=10)
+ground = api.MeshBuilder.create_ground("gd", stage, width=50, height=50, subdivsions=10, updatable = True)
+vertices = ground.getVerticesData(api.VertexBuffer.PositionKind)
+vertices[1] = -10
+ground.setVerticesData(api.VertexBuffer.PositionKind, vertices)
+
 groundimp = api.PhysicsImpostor(ground, api.PhysicsImpostor.PlaneImpostor, {'mass': 0})
 
 plight = api.DirectionalLight('light1', api.Vector3(0.707, -0.707, 0.707))
@@ -82,7 +86,24 @@ document.getElementById('game_canvas').focus()
 
 __pragma__('noalias', 'babylon_aliases')
 
-#from shaders import ShaderLoader2
+from shaders import ShaderAssetTask
 
-#test = ShaderLoader(stage)
-#test.load( 'tester')
+
+#api.AssetsManager.prototype.addShaderTask = addShaderTask
+"""
+__pragma__('js',"{}", '''
+window.BABYLON.AssetsManager.prototype.addShaderTask = function (taskName, url) {
+    var shader_task = ShaderAssetTask (taskName, url);
+    this.tasks.push (shader_task);
+    return shader_task;
+};''')
+"""
+am = api.AssetsManager(stage)
+
+sl = am.addShaderTask('test', './src/shaders/tester.shader')
+#am.tasks.append(sl)
+def t():
+    sphere.material = sl.shader
+am.onTaskSuccessObservable.add(t)
+am.load()
+

@@ -1,4 +1,4 @@
-recipes:
+    recipes:
 ========
 
 # pick mesh with a click:
@@ -128,6 +128,32 @@ Note everything collides; not everything triggers event
 # pure kinematic movement
 
 Use `.moveWithCollisions(Vector)`  but the vector has to include gravity -- 'applyGravity' (in the docs) only works on Cameras. 
+
+
+# modify an existing mesh vertices
+
+    ground = api.MeshBuilder.create_ground("gd", stage, width=50, height=50, subdivsions=10, updatable = True)
+    vertices = ground.getVerticesData(api.VertexBuffer.PositionKind)
+    vertices[1] = -10
+    ground.setVerticesData(api.VertexBuffer.PositionKind, vertices)
+
+here vertices will be a flat array with a stride of 3
+# or custom mesh
+
+    customMesh = api.Mesh("custom", scene)
+    positions = [-5, 2, -3, -7, -2, -3, -3, -2, -3, 5, 2, 3, 7, -2, 3, 3, -2, 3]
+    indices = [0, 1, 2, 3, 4, 5]
+    
+    normals = []
+    vertexData = api.VertexData()
+    api.VertexData.ComputeNormals(positions, indices, normals)
+    vertexData.positions = positions
+    vertexData.indices = indices
+    vertexData.normals = normals 
+    vertexData.applyToMesh(customMesh)
+
+indices is the index buffer:   here two triangles for vertex (0-1-2) and (3-4-5)
+
 
 Transcrypt
 ===========
