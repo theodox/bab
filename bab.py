@@ -104,6 +104,11 @@ sl = am.addShaderTask('test', './src/shaders/tester.shader')
 #am.tasks.append(sl)
 def t():
     sphere.material = sl.shader
+    sphere.material.setVector4('diffuse', api.Vector4(1,0,0,1))
+
+    obst.material = sl.shader.clone()
+    obst.material.setVector4('diffuse', api.Vector4(0,1,0,1))
 am.onTaskSuccessObservable.add(t)
 am.load()
+
 
