@@ -84,6 +84,26 @@ shows an example of awaiting a promise-returning function then executing another
 
 Allows you to queue up a bunch of async jobs and run them. UI for combined progress as it handles all.  
 
+Added a custom class in org.bjs.assets which mimics the BJS task base.  Derive from it an you can create  new custom task type with it's one load hook.  
+
+
+## loading shaders with the Asset Manager
+
+
+    am = api.AssetsManager(stage)
+    # this is derived from asset tasks, see above
+    sl = am.addShaderTask('test', './src/shaders/tester.shader')
+    def shader_loaded():
+        sphere.material = sl.shader
+        sphere.material.setVector4('diffuse', api.Vector4(1,0,0,1))
+
+        obst.material = sl.shader.clone()
+        obst.material.setVector4('diffuse', api.Vector4(0,1,0,1))
+    am.onTaskSuccessObservable.add(shader_loaded)
+    am.load()
+
+Key here is to use the clone() method to fork the shader code and then set the constants
+
 # registering keyboard input
 
 Have to be explicit about assigning the actionmgr to the right member 
