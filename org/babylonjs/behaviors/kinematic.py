@@ -1,4 +1,4 @@
-from behaviors import Tickable
+from org.babylonjs.behaviors import Tickable
 import org.babylonjs.api as api
 from org.transcrypt.stubs.browser import __pragma__
 import logging
