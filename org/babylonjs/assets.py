@@ -15,6 +15,18 @@ class AssetTask:
     add the method 'add<ClassName>' to the AssetsManager prototype.  So,
     a class named 'ShaderTask'  will be available through a new method named
     'addShaderTask'
+
+    The original IAssetTask interface is:
+    onSuccess: (task: IAssetTask) => void;
+    onError: (task: IAssetTask, message?: string, exception?: any) => void;
+
+    isCompleted: boolean = false;
+    name: string;
+    taskState: AssetTaskState;
+    errorObject: { message?: string; exception?: any; };
+
+    The internal names are JS-cased not pep-8 for compatibility
+
     """
 
     def __init__(self, name, url, *_):
