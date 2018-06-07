@@ -48,7 +48,7 @@ class AssetTask:
         def task_adder(name, url, *args):
             new_task = cls(name, url, *args)
             # 'this' will be supplied by AssetsManager
-            this.tasks.append(new_task)
+            this._tasks.append(new_task)
             return new_task
 
         # this has to go back to the window.BABYLON version -- importing via

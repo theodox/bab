@@ -15,5 +15,4 @@ def _gui_class_factory(api_key, api_object):
 
     return api_key, BabylonGUIObject
 
-
 ClassFactory(window.BABYLON.GUI, __all__).reflect(_gui_class_factory)

@@ -110,11 +110,7 @@ def _load_api():
     # wrap api classes where useful, promote to
     # the __all__ namespace of this so they look like
     # memberts for import
-    console.time('api initialized')
-
     ClassFactory(window.BABYLON, __all__).reflect(_promote)
-
-    console.timeEnd('api initialized')
 
     def _add_kwargs(cls, member):
         """convert the syntax of the meshbuilder, which is ugly"""
@@ -145,10 +141,6 @@ def _load_api():
 
 
 
-# load the Babylonjs module into __all__
-console.time('babylonjs loaded')
-__pragma__('js', '{}', __include__('org/babylonjs/__javascript__/babylon.custom.js'))
-console.timeEnd('babylonjs loaded')
 
 _load_api()
 
